@@ -1,0 +1,101 @@
+:root {
+    /* Fondo principal y elementos ligeros */
+    --color-fondo-primario: #FFFFFF;
+    --color-fondo-secundario: #F8F8FF;
+
+    /* Texto y elementos principales oscuros */
+    --color-texto-principal: #36454F;
+    --color-texto-secundario: #000000;
+
+    /* Color de acento para botones y highlights */
+    --color-acento: #55A67C;
+    --verde-hover: rgba(76, 175, 80, 0.5);
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'roboto';
+}
+
+body {
+    background-color: var(--color-fondo-primario);
+    color: var(--color-texto-principal);
+}
+
+.header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-menu {
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    background-color: transparent;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.img-logo {
+    width: auto;
+    height: 150px;
+}
+
+.icon-menu {
+    width: 30px;
+    height: 30px;
+    color: var(--color-texto-principal);
+}
+
+form {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+#buscador {
+    width: 300px;
+    height: 46px;
+    border: solid 2px var(--color-acento);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    padding-left: 12px;
+    font-size: 15px;
+}
+
+#buscador::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid var(--color-acento);
+    box-shadow: 0 0 5px var(--verde-hover);
+}
+
+.btn-search {
+    height: 46px;
+    background: var(--color-acento);
+    border: solid 2px var(--color-acento);
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    color: var(--color-texto-principal);
+}
+
+.icon-search {
+    height: 20px;
+}
