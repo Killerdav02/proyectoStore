@@ -10,13 +10,50 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <script src="./app.js" defer></script>
 </head>
 
 <body>
     <header class="header">
-        <button class="btn-menu">
-            <img src="./src/images/view_headline.svg" alt="" class="icon-menu">
+        <!-- Botón menú -->
+        <button class="btn-menu" id="btnMenu">
+            <img src="./src/images/view_headline.svg" alt="Menú" class="icon-menu" id="iconMenu">
         </button>
+
+
+        <!-- Panel lateral oculto -->
+        <aside class="menu-categorias" id="menuCategorias">
+            <ul class="list-aside">
+                <li class="list-item">
+                    <a href="/index.html" class="enlaces-aside"><img src="./src/images/home.svg" alt=""> Inicio</a>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="enlaces-aside"><img src="./src/images/shopping_cart.svg" alt=""> Carrito</a>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="enlaces-aside"><img src="./src/images/shops.svg" alt="">Mis compras</a>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="enlaces-aside" id="moreCategories">
+                        <img src="./src/images/grid_view.svg" alt=""> Categorías
+                    </a>
+                    <button class="more-categories" id="btnExpand">
+                        <img src="./src/images/expand_more.svg" alt="" width="32px" id="iconExpand">
+                    </button>
+
+                    <ul class="sub-list oculto" id="subList">
+                        <li><a href="#">Ropa</a></li>
+                        <li><a href="#">Electrónica</a></li>
+                        <li><a href="#">Joyería</a></li>
+                        <li><a href="#">Otros</a></li>
+                    </ul>
+                </li>
+                <li class="list-item">
+                    <a href="#" class="enlaces-aside"><img src="./src/images/history.svg" alt="">Historial</a>
+                </li>
+            </ul>
+        </aside>
+
         <img src="./src/images/logoAmanga.png" class="img-logo">
         <form action="/buscar" method="get">
             <input type="search" id="buscador" name="q" placeholder="Que deseas comprar?">
@@ -24,6 +61,9 @@
                     class="icon-search"></button>
         </form>
     </header>
+    <section class="colum-components">
+
+    </section>
 </body>
 
 </html>
