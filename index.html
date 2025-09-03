@@ -4,66 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Menú con subcategorías</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <script src="./app.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Entry point -->
+    <script type="module" src="./js/app.js"></script>
+
+
+
 </head>
 
 <body>
     <header class="header">
-        <!-- Botón menú -->
+
+        <button class="btn-cart" id="btnCart">
+            <img src="./src/images/shopping_cart.svg" alt="" class="icon-menu" id="iconCart">
+        </button>
+
+        <aside class="cart-panel" id="cartPanel">
+            <h2></h2>
+            <div id="cart-container">
+                <!-- Aquí se renderizarán los productos del carrito -->
+            </div>
+        </aside>
+
         <button class="btn-menu" id="btnMenu">
             <img src="./src/images/view_headline.svg" alt="Menú" class="icon-menu" id="iconMenu">
         </button>
 
-
-        <!-- Panel lateral oculto -->
         <aside class="menu-categorias" id="menuCategorias">
             <ul class="list-aside">
-                <li class="list-item">
-                    <a href="/index.html" class="enlaces-aside"><img src="./src/images/home.svg" alt=""> Inicio</a>
-                </li>
-                <li class="list-item">
-                    <a href="#" class="enlaces-aside"><img src="./src/images/shopping_cart.svg" alt=""> Carrito</a>
-                </li>
-                <li class="list-item">
-                    <a href="#" class="enlaces-aside"><img src="./src/images/shops.svg" alt="">Mis compras</a>
-                </li>
-                <li class="list-item">
-                    <a href="#" class="enlaces-aside" id="moreCategories">
-                        <img src="./src/images/grid_view.svg" alt=""> Categorías
-                    </a>
-                    <button class="more-categories" id="btnExpand">
-                        <img src="./src/images/expand_more.svg" alt="" width="32px" id="iconExpand">
-                    </button>
+                <li class="list-item"><a href="#"><img src="./src/images/home.svg" alt=""> Inicio</a></li>
+                <li class="list-item"><a href="#"><img src="./src/images/shops.svg" alt=""> Mis compras</a></li>
 
-                    <ul class="sub-list oculto" id="subList">
-                        <li><a href="#">Ropa</a></li>
-                        <li><a href="#">Electrónica</a></li>
-                        <li><a href="#">Joyería</a></li>
-                        <li><a href="#">Otros</a></li>
+                <li class="list-item">
+                    <button class="categoria-btn" id="btnExpand">
+                        <img src="./src/images/grid_view.svg" alt=""> Categorías
+                        <img src="./src/images/expand_more.svg" alt="" class="icon-expand" id="iconExpand">
+                    </button>
+                    <ul class="sub-list" id="subList">
+                        <li><a href="#" class="category-item" data-category="men's clothing">Ropa de hombre</a></li>
+                        <li><a href="#" class="category-item" data-category="women's clothing">Ropa de mujer</a></li>
+                        <li><a href="#" class="category-item" data-category="jewelery">Joyería</a></li>
+                        <li><a href="#" class="category-item" data-category="electronics">Electrónica</a></li>
                     </ul>
                 </li>
-                <li class="list-item">
-                    <a href="#" class="enlaces-aside"><img src="./src/images/history.svg" alt="">Historial</a>
-                </li>
+
+                <li class="list-item"><a href="#"><img src="./src/images/history.svg" alt=""> Historial</a></li>
             </ul>
         </aside>
-
         <img src="./src/images/logoAmanga.png" class="img-logo">
-        <form action="/buscar" method="get">
-            <input type="search" id="buscador" name="q" placeholder="Que deseas comprar?">
-            <button type="submit" class="btn-search"><img src="./src/images/search.svg" alt=""
-                    class="icon-search"></button>
+        <form id="searchForm">
+            <input type="search" id="buscador" name="q" placeholder="¿Qué deseas comprar?">
+            <button type="submit" class="btn-search">
+                <img src="./src/images/search.svg" alt="" class="icon-search">
+            </button>
         </form>
-    </header>
-    <section class="colum-components">
 
-    </section>
+
+    </header>
+
+    <div id="product-container" class="product-grid">
+
+    </div>
+    <footer class="footer">
+
+        <a>
+            <h4>Síguenos</h4>
+        </a>
+        <hr class="separador">
+        <div class="logos-footer">
+            <a href="https://www.facebook.com/" target="_blank"><img src="./src/images/Facebook Icon.svg" alt=""
+                    class="icon-footer"></a>
+            <a href="https://www.tiktok.com/es/" target="_blank"><img src="./src/images/Tiktok Icon.svg" alt=""
+                    class="icon-footer"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="./src/images/Instagram Icon.svg" alt=""
+                    class="icon-footer"></a>
+        </div>
+    </footer>
 </body>
 
 </html>
