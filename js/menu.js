@@ -13,6 +13,8 @@ const iconExpand = document.getElementById("iconExpand");
 const btnCart = document.querySelector(".btn-cart");
 const cartPanel = document.getElementById("cartPanel");
 
+const cartCount = document.getElementById("cart-count");
+
 // Abrir / cerrar menú lateral
 if (btnMenu && menuCategorias && iconMenu) {
     btnMenu.addEventListener("click", () => {
@@ -50,6 +52,11 @@ if (btnCart && cartPanel && iconCart) {
         } else {
             iconCart.setAttribute("src", "./src/images/shopping_cart.svg");
         }
+
+        // Ocultar badge mientras el panel está abierto
+        if (cartCount) {
+            cartCount.style.display = isActive ? "none" : "inline-block";
+        }
     });
 }
 
@@ -61,6 +68,3 @@ if (btnExpand && subList && iconExpand) {
         iconExpand.classList.toggle("rotar");
     });
 }
-
-
-
