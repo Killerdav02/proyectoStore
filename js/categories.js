@@ -5,23 +5,23 @@
 import { getAllProducts } from './api.js';
 import { renderProducts } from './products.js';
 
-// Seleccionar todos los elementos de categoría
+// --- Filtrado por categoría ---
 const categoryItems = document.querySelectorAll(".category-item");
-const menuCategorias = document.getElementById("menuCategorias"); // panel lateral
-const iconMenu = document.getElementById("iconMenu");           // icono hamburguesa / equis
+const menuCategorias = document.getElementById("menuCategorias"); 
+const iconMenu = document.getElementById("iconMenu");
 
 categoryItems.forEach(item => {
     item.addEventListener("click", (e) => {
-        e.preventDefault(); // Evitar que el enlace navegue
+        e.preventDefault();
 
         const category = item.dataset.category;
         if (!category) return;
 
-        // Filtrar productos por categoría
+        // Filtrar productos
         const filteredProducts = getAllProducts().filter(p => p.category === category);
         renderProducts(filteredProducts);
 
-        // Cerrar automáticamente el menú lateral
+        // Cerrar menú lateral si está abierto
         if (menuCategorias.classList.contains("activo")) {
             menuCategorias.classList.remove("activo");
 
@@ -32,3 +32,35 @@ categoryItems.forEach(item => {
         }
     });
 });
+
+// --- Carrusel táctil 1x1 ---
+const track = document.querySelector(".categories-track");
+
+if (track) {
+    let startX = 0;
+    let currentX = 0;
+    let position = 0;
+
+    const categories = document.querySelectorAll(".category");
+    const itemWidth = track.offsetWidth; // ocupa toda la pantalla
+
+    // Inicia touch
+    track.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    // Suelta -> decide si avanza o retrocede
+    track.addEventListener("touchend", (e) => {
+        const deltaX = e.changedTouches[0].clientX - startX;
+
+        if (deltaX < -50 && Math.abs(position) < (categories.length - 1) * itemWidth) {
+            position -= itemWidth; // swipe izquierda
+        } else if (deltaX > 50 && position < 0) {
+            position += itemWidth; // swipe derecha
+        }
+
+        track.style.transform = `translateX(${position}px)`;
+        track.style.transition = "transform 0.4s ease";
+        setTimeout(() => (track.style.transition = ""), 400);
+    });
+}

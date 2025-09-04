@@ -68,3 +68,17 @@ if (btnExpand && subList && iconExpand) {
         iconExpand.classList.toggle("rotar");
     });
 }
+
+let lastScrollY = window.scrollY;
+const navbar = document.querySelector(".navbar-footer");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > lastScrollY) {
+        // scrolling hacia abajo → ocultar
+        navbar.classList.add("hide");
+    } else {
+        // scrolling hacia arriba → mostrar
+        navbar.classList.remove("hide");
+    }
+    lastScrollY = window.scrollY;
+});

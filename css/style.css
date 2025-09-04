@@ -5,7 +5,8 @@
     --color-texto-secundario: #000000;
     --color-acento: #55A67C;
     --verde-hover: rgba(76, 175, 80, 0.5);
-    --shadow-footer: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Nueva variable */
+    --shadow-footer: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Nueva variable */
 }
 
 * {
@@ -26,7 +27,7 @@ body {
 
 /* Contenedor principal de contenido dinámico */
 .product-grid {
-    flex: 1; 
+    flex: 1;
     margin-top: 60px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -49,7 +50,7 @@ body {
     align-items: center;
 }
 
-.btn-cart{
+.btn-cart {
     position: absolute;
     right: 16px;
     top: 20px;
@@ -239,22 +240,28 @@ form {
     box-shadow: var(--shadow-footer);
 }
 
-.logos-footer{
+.logos-footer {
     display: flex;
     justify-content: space-around;
     width: 50%;
 }
+
 .icon-footer {
     width: 24px;
     height: 24px;
 }
 
 .separador {
-    border: none;           /* Quita el borde por defecto */
-    height: 2px;            /* Grosor de la línea */
-    background-color: #55A67C; /* Color de la línea */
-    margin: 4px 0;         /* Espaciado arriba y abajo */
-    width: 30%;             /* Longitud de la línea */
+    border: none;
+    /* Quita el borde por defecto */
+    height: 2px;
+    /* Grosor de la línea */
+    background-color: #55A67C;
+    /* Color de la línea */
+    margin: 4px 0;
+    /* Espaciado arriba y abajo */
+    width: 30%;
+    /* Longitud de la línea */
     border-radius: 999px;
 }
 
@@ -286,7 +293,7 @@ form {
     border: none;
 }
 
-.btn-add{
+.btn-add {
     border: none;
     margin-top: 8px;
     background-color: var(--color-fondo-secundario);
@@ -339,7 +346,8 @@ form {
     height: 24px;
     cursor: pointer;
     background-color: var(--color-fondo-secundario);
-    border: solid 1px;color: var(--color-texto-principal);
+    border: solid 1px;
+    color: var(--color-texto-principal);
     border-radius: 8px;
 }
 
@@ -374,16 +382,32 @@ form {
     transform: translateY(0);
 }
 
-.navbar-footer{
+.navbar-footer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     width: 100%;
     height: 86px;
+
+    position: fixed;
+    /* siempre fijo al fondo */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-fondo-primario);
+    z-index: 1000;
+
+    transition: transform 0.3s ease-in-out;
+    /* animación suave */
 }
 
-.btn-navbar{
+.navbar-footer.hide {
+    transform: translateY(100%);
+    /* lo baja fuera de la vista */
+}
+
+.btn-navbar {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -393,16 +417,73 @@ form {
     color: var(--color-texto-principal);
     width: 34px;
     height: 42px;
+    cursor: pointer;
 }
 
-.btn-container{
+.btn-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 342px;
 }
 
-.icon-navbar{
+.icon-navbar {
     width: 24px;
     padding-bottom: 4px;
+}
+
+.separador {
+    width: 50%;
+    border: none;
+    border-top: 1px solid var(--color-borde, #ddd);
+}
+
+/* --- Contenedor del carrusel --- */
+.categories-carousel {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* --- Pista del carrusel (donde van los ítems) --- */
+.categories-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+/* --- Cada categoría ocupa el 100% del carrusel --- */
+.category {
+    min-width: 100%;   /* cada tarjeta ocupa toda la pantalla */
+    flex-shrink: 0;    /* evita que se encojan */
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* --- Imagen adaptada al ancho --- */
+.img-categories {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    max-height: 250px; /* ajusta según quieras */
+}
+
+.carousel-controls button {
+    background: var(--color-fondo-primario, #333);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    margin: 0 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.2s ease-in-out;
+}
+
+.carousel-controls button:hover {
+    background: #555;
 }
