@@ -1,10 +1,7 @@
-// =====================
 // js/products.js
-// =====================
 
 import { fetchProducts } from './api.js';
 import { escapeHtml, showLoading, hideLoading, showError } from './helpers.js';
-
 // Import flexible: no falla aunque no exista el export nombrado
 import * as Cart from './cart.js';
 
@@ -22,7 +19,7 @@ let showingSaved = false;   // ⭐ FAVORITOS: estado de vista
 // ---------- Fallback seguro si no existe Cart.addToCartFromCart ----------
 function addToCartSafe(product) {
     try {
-        // 1) Si el módulo cart.js sí expone una función conocida, úsala.
+        // 1) Si el módulo cart.js sí expone una función conocida.
         if (Cart && typeof Cart.addToCartFromCart === 'function') {
             Cart.addToCartFromCart(product);
             return;
@@ -50,7 +47,7 @@ function addToCartSafe(product) {
 
     localStorage.setItem(key, JSON.stringify(cartArr));
 
-    // Notifica a quien escuche (cart.js suele escuchar esto)
+    // Notifica a quien escuche
     window.dispatchEvent(new CustomEvent('cartUpdated', {
         detail: { cart: cartArr, action: 'add', productId: product.id }
     }));
@@ -123,22 +120,22 @@ export function renderProducts(products) {
             : "./src/images/heart-black.svg";
 
         card.innerHTML = `
-      <div class="product-thumb">
+    <div class="product-thumb">
         <img src="${p.image}" alt="${escapeHtml(p.title)}">
         <!-- ⭐ FAVORITOS -->
         <button class="btn-fav" type="button" data-id="${p.id}" title="Guardar en favoritos" aria-pressed="${isFavorite(p.id)}">
-          <img src="${favSrc}" alt="favorite" class="heart-icon">
+            <img src="${favSrc}" alt="favorite" class="heart-icon">
         </button>
-      </div>
-      <h3>${escapeHtml(p.title)}</h3>
-      <p class="price">$${Number(p.price).toFixed(2)}</p>
-      <button class="btn-add" type="button" data-id="${p.id}">
+    </div>
+    <h3>${escapeHtml(p.title)}</h3>
+    <p class="price">$${Number(p.price).toFixed(2)}</p>
+    <button class="btn-add" type="button" data-id="${p.id}">
         <img src="./src/images/add_shopping_cart.svg" alt="Agregar al carrito">
-      </button>
+    </button>
     `;
         productsContainer.appendChild(card);
 
-        // 🛒 Agregar al carrito (con fallback robusto)
+        //Agregar al carrito
         const addBtn = card.querySelector(".btn-add");
         addBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -146,7 +143,7 @@ export function renderProducts(products) {
             addToCartSafe(p);
         });
 
-        // ⭐ FAVORITOS
+        //FAVORITOS
         const favBtn = card.querySelector(".btn-fav");
         const favIcon = favBtn.querySelector(".heart-icon");
 

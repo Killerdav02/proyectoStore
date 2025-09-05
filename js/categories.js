@@ -1,6 +1,4 @@
-// =====================
 // js/categories.js
-// =====================
 
 import { getAllProducts, renderProducts } from "./products.js";
 
@@ -14,9 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // "men's clothing" | "women's clothing" | "jewelery" | "electronics"
     const categoryCards = document.querySelectorAll(".category");
 
-    // Menú lateral (opcional)
-    const menuCategorias = document.getElementById("menuCategorias");
-    const iconMenu = document.getElementById("iconMenu");
+    // Menú lateral de categorías
 
     categoryCards.forEach(card => {
         card.style.cursor = "pointer";
@@ -26,18 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const filtered = getAllProducts().filter(p => norm(p.category) === norm(category));
             renderProducts(filtered);
-
-            // Cerrar menú lateral si está abierto (si existen los nodos)
-            if (menuCategorias?.classList.contains("activo")) {
-                menuCategorias.classList.remove("activo");
-                if (iconMenu?.getAttribute("src") === "./src/images/equis.svg") {
-                    iconMenu.setAttribute("src", "./src/images/view_headline.svg");
-                }
-            }
         });
     });
 
-    // --- Carrusel táctil 1x1 ---
+    // --- Carrusel---
     const track = document.querySelector(".categories-track");
     if (track) {
         let startX = 0;

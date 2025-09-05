@@ -330,6 +330,7 @@ form {
 /* ===================== */
 @media (min-width: 992px) {
     /* Navbar arriba */
+
     .navbar-footer .separador { display: none; }
     .navbar-footer {
         flex-direction: row;

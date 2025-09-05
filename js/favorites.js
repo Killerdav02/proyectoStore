@@ -4,14 +4,14 @@
 
 export let favorites = [];
 
-/** 🔄 Cargar favoritos desde localStorage */
+/** Cargar favoritos desde localStorage */
 export function loadFavorites() {
     const raw = localStorage.getItem("favorites");
     favorites = raw ? JSON.parse(raw) : [];
     return favorites;
 }
 
-/** 💾 Guardar favoritos en localStorage */
+/** Guardar favoritos en localStorage */
 function saveFavorites() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
     // Notificar al resto de la app que cambió la lista
@@ -20,12 +20,12 @@ function saveFavorites() {
     );
 }
 
-/** ❓ Saber si un producto está en favoritos */
+/** Saber si un producto está en favoritos */
 export function isFavorite(productId) {
     return favorites.some(f => f.id === productId);
 }
 
-/** ❤️ Alternar favorito (agrega/quita) */
+/** Alternar favorito (agrega/quita) */
 export function toggleFavorite(product) {
     if (isFavorite(product.id)) {
         favorites = favorites.filter(f => f.id !== product.id);
@@ -42,7 +42,7 @@ export function getFavorites() {
     return [...favorites];
 }
 
-/** 🚀 Inicializar favoritos: cargar y enganchar botón Saved */
+/** Inicializar favoritos: cargar y enganchar botón Saved */
 export function initFavorites({ onShowSaved, onShowAll } = {}) {
     loadFavorites();
 

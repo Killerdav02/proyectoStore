@@ -1,6 +1,4 @@
-// =====================
 // js/api.js
-// =====================
 
 import { showLoading, hideLoading, showError } from './helpers.js';
 

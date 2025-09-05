@@ -1,6 +1,4 @@
-// =====================
 // js/search.js
-// =====================
 
 import { getAllProducts, renderProducts } from './products.js';
 
@@ -67,7 +65,7 @@ export function getCurrentSearchTerm() {
 export function initSearch() {
     const searchInput = document.getElementById("buscador");
     const searchForm = document.getElementById("searchForm");
-    const clearBtn = document.getElementById("clear-search"); // Botón opcional para limpiar
+    const clearBtn = document.getElementById("clear-search");
 
     if (searchInput) {
         // Evento de input con debounce

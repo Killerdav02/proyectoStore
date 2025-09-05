@@ -1,6 +1,4 @@
-// =====================
 // js/app.js
-// =====================
 
 import './helpers.js';
 import './menu.js';

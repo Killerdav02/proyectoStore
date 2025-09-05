@@ -1,7 +1,3 @@
-// =====================
-// js/cart.js
-// =====================
-
 import { escapeHtml } from './helpers.js';
 
 export let cart = [];
@@ -206,7 +202,7 @@ export function initCart() {
     // Soporte: si products.js emite un evento para agregar
     window.addEventListener('addToCartRequest', (e) => {
         const product = e?.detail?.product;
-        if (product) addToCartFromCart(product);
+        if (prouct) addToCartFromCart(product);
     });
 
     const btnCart = document.getElementById("btnCart");

@@ -1,6 +1,4 @@
-// =====================
 // js/helpers.js
-// =====================
 
 /**
  * Escapar caracteres HTML para evitar inyecciones
