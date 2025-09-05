@@ -1,115 +1,169 @@
+// =====================
+// js/cart.js
+// =====================
+
 import { escapeHtml } from './helpers.js';
 
-const cartContainer = document.getElementById("cart-container");
-const cartCount = document.getElementById("cart-count"); // badge del carrito
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+export let cart = [];
 
-// Inicializar carrito al cargar la página
+/**
+ * Contador del carrito
+ */
+function updateCartCount() {
+    const cartCountElement = document.getElementById("cart-count");
+    if (!cartCountElement) return;
+
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    cartCountElement.textContent = totalItems > 0 ? totalItems : "";
+}
+
+/**
+ * Cargar carrito desde localStorage
+ */
 export function loadCart() {
-    renderCart();
+    const storedCart = localStorage.getItem("cart");
+    cart = storedCart ? JSON.parse(storedCart) : [];
     updateCartCount();
+    renderCart();
+    window.dispatchEvent(new CustomEvent("cartLoaded", { detail: { cart } }));
+    return cart;
 }
 
-// Agregar producto al carrito
-export function addToCart(product) {
-    const existing = cart.find(item => item.id === product.id);
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-    saveCart();
-    renderCart();
-    updateCartCount();
-    showNotification("✅ Agregado correctamente");
-}
-
-// Guardar carrito en localStorage
+/**
+ * Guardar carrito en localStorage
+ */
 function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// Cambiar cantidad
-function changeQuantity(id, delta) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    item.quantity += delta;
-    if (item.quantity < 1) {
-        cart = cart.filter(i => i.id !== id);
-    }
-    saveCart();
-    renderCart();
     updateCartCount();
+    window.dispatchEvent(new CustomEvent("cartUpdated", { detail: { cart } }));
 }
 
-// Calcular total
-function calculateTotal() {
-    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-}
 
-// Actualizar badge del carrito
-function updateCartCount() {
-    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalQuantity;
+/**
+ * Renderizar el carrito
+ */
+export function renderCart() {
+    const cartContainer = document.getElementById("cart-container");
+    if (!cartContainer) return;
 
-    // ocultar badge si está vacío
-    cartCount.style.display = totalQuantity > 0 ? "inline-block" : "none";
-}
-
-// Renderizar carrito
-function renderCart() {
     cartContainer.innerHTML = "";
 
     if (!cart.length) {
-        cartContainer.innerHTML = "<p>El carrito está vacío</p>";
+        cartContainer.innerHTML = `
+    <div class="empty-cart">
+        <p>Tu carrito está vacío</p>
+        <p class="empty-cart-subtitle">¡Agrega algunos productos para comenzar!</p>
+    </div>
+    `;
         return;
     }
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const headerDiv = document.createElement("div");
+    headerDiv.className = "cart-header";
+    headerDiv.innerHTML = `<h3>Tu carrito (${cart.reduce((s, i) => s + i.quantity, 0)} items)</h3>`;
+    cartContainer.appendChild(headerDiv);
+
+    const itemsContainer = document.createElement("div");
+    itemsContainer.className = "cart-items";
 
     cart.forEach(item => {
         const div = document.createElement("div");
         div.className = "cart-item";
-        div.dataset.id = item.id;
         div.innerHTML = `
-            <img src="${item.image}" alt="${escapeHtml(item.title)}" class="cart-item-img">
-            <div class="cart-item-info">
-                <h4>${escapeHtml(item.title)}</h4>
-                <p>$${item.price.toFixed(2)}</p>
-                <div class="quantity-controls">
-                    <button class="decrease">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="increase">+</button>
-                </div>
-            </div>
-        `;
-        cartContainer.appendChild(div);
-
-        div.querySelector(".increase").addEventListener("click", () => changeQuantity(item.id, 1));
-        div.querySelector(".decrease").addEventListener("click", () => changeQuantity(item.id, -1));
+      <img src="${item.image}" alt="${escapeHtml(item.title)}" class="cart-item-img">
+      <div class="cart-item-info">
+        <h4>${escapeHtml(item.title)}</h4>
+        <p class="item-price">$${item.price.toFixed(2)}</p>
+        <div class="quantity-controls">
+          <button class="btn-decrease" data-id="${item.id}">-</button>
+          <span class="quantity">${item.quantity}</span>
+          <button class="btn-increase" data-id="${item.id}">+</button>
+        </div>
+        <p class="item-subtotal">Subtotal: $${(item.price * item.quantity).toFixed(2)}</p>
+      </div>
+    `;
+        itemsContainer.appendChild(div);
     });
 
-    // Mostrar total al final
-    const totalDiv = document.createElement("div");
-    totalDiv.className = "cart-total";
-    totalDiv.innerHTML = `<h3>Total: $${calculateTotal().toFixed(2)}</h3>`;
-    cartContainer.appendChild(totalDiv);
+    cartContainer.appendChild(itemsContainer);
+
+    const footerDiv = document.createElement("div");
+    footerDiv.className = "cart-footer";
+    footerDiv.innerHTML = `<div class="cart-total"><strong>Total: $${total.toFixed(2)}</strong></div>`;
+    cartContainer.appendChild(footerDiv);
+
+    cartContainer.querySelectorAll(".btn-decrease").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const item = cart.find(i => i.id === Number(btn.dataset.id));
+            if (item) {
+                item.quantity = Math.max(1, item.quantity - 1);
+                saveCart();
+                renderCart();
+            }
+        });
+    });
+
+    cartContainer.querySelectorAll(".btn-increase").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const item = cart.find(i => i.id === Number(btn.dataset.id));
+            if (item) {
+                item.quantity += 1;
+                saveCart();
+                renderCart();
+            }
+        });
+    });
 }
 
-// ==========================
-// Notificación flotante
-// ==========================
-function showNotification(message) {
-    const notif = document.createElement("div");
-    notif.className = "toast";
-    notif.textContent = message;
+/**
+ * Toggle carrito
+ */
+function toggleCartView(showCart = null) {
+    const productsContainer = document.getElementById("product-container");
+    const cartContainer = document.getElementById("cart-container");
+    const categoriesSection = document.querySelector(".categories-carousel");
+    if (!productsContainer || !cartContainer) return;
 
-    document.body.appendChild(notif);
+    const isShowing = cartContainer.classList.contains("active");
+    const shouldShow = showCart !== null ? showCart : !isShowing;
 
-    setTimeout(() => {
-        notif.classList.add("show");
-    }, 100);
+    if (shouldShow) {
+        cartContainer.classList.add("active");
+        productsContainer.classList.add("hidden");
+        if (categoriesSection) categoriesSection.classList.add("hidden");
+        renderCart();
+    } else {
+        cartContainer.classList.remove("active");
+        productsContainer.classList.remove("hidden");
+        if (categoriesSection) categoriesSection.classList.remove("hidden");
+    }
 
-    setTimeout(() => {
-        notif.classList.remove("show");
-        setTimeout(() => notif.remove(), 300);
-    }, 2000);
+    // Forzar actualización del contador en cada toggle
+    updateCartCount();
 }
+
+/**
+ * Init
+ */
+export function initCart() {
+    loadCart();
+    const btnCart = document.getElementById("btnCart");
+    if (btnCart) {
+        btnCart.addEventListener("click", () => toggleCartView());
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initCart);
+
+// Sincronía global
+window.addEventListener("cartUpdated", (e) => {
+    cart = e?.detail?.cart || JSON.parse(localStorage.getItem("cart") || "[]");
+    updateCartCount();
+    const cartContainer = document.getElementById("cart-container");
+    if (cartContainer?.classList.contains("active")) {
+        renderCart();
+    }
+});

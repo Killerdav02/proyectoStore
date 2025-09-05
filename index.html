@@ -4,61 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú con subcategorías</title>
+    <title>FakeStore</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Entry point -->
     <script type="module" src="./js/app.js"></script>
 
-
-
 </head>
 
 <body>
     <header class="header">
 
-        <button class="btn-cart" id="btnCart">
-            <img src="./src/images/shopping_cart.svg" alt="" class="icon-menu" id="iconCart">
-            <span id="cart-count" class="cart-count">0</span>
-        </button>
 
-        <aside class="cart-panel" id="cartPanel">
-            <h2></h2>
-            <div id="cart-container">
-                <!-- Aquí se renderizarán los productos del carrito -->
-            </div>
-        </aside>
 
-        <button class="btn-menu" id="btnMenu">
-            <img src="./src/images/view_headline.svg" alt="Menú" class="icon-menu" id="iconMenu">
-        </button>
 
-        <aside class="menu-categorias" id="menuCategorias">
-            <ul class="list-aside">
-                <li class="list-item"><a href="#"><img src="./src/images/home.svg" alt=""> Inicio</a></li>
-                <li class="list-item"><a href="#"><img src="./src/images/shops.svg" alt=""> Mis compras</a></li>
 
-                <li class="list-item">
-                    <button class="categoria-btn" id="btnExpand">
-                        <img src="./src/images/grid_view.svg" alt=""> Categorías
-                        <img src="./src/images/expand_more.svg" alt="" class="icon-expand" id="iconExpand">
-                    </button>
-                    <ul class="sub-list" id="subList">
-                        <li><a href="#" class="category-item" data-category="men's clothing">Ropa de hombre</a></li>
-                        <li><a href="#" class="category-item" data-category="women's clothing">Ropa de mujer</a></li>
-                        <li><a href="#" class="category-item" data-category="jewelery">Joyería</a></li>
-                        <li><a href="#" class="category-item" data-category="electronics">Electrónica</a></li>
-                    </ul>
-                </li>
-
-                <li class="list-item"><a href="#"><img src="./src/images/history.svg" alt=""> Historial</a></li>
-            </ul>
-        </aside>
         <img src="./src/images/logoAmanga.png" class="img-logo">
         <form id="searchForm">
             <input type="search" id="buscador" name="q" placeholder="¿Qué deseas comprar?">
-            
         </form>
 
 
@@ -66,54 +30,61 @@
     <!-- Categorías -->
     <section class="categories-carousel">
         <div class="categories-track">
-            <div class="category">
+            <div class="category" data-category="men's clothing">
                 <img src="./src/images/ropa-hombre.webp" alt="" class="img-categories">
                 <h3>Ropa de Hombre</h3>
             </div>
-            <div class="category">
+
+            <div class="category" data-category="women's clothing">
                 <img src="./src/images/ropa-muejr.webp" alt="" class="img-categories">
                 <h3>Ropa de mujer</h3>
             </div>
-            <div class="category">
+
+            <div class="category" data-category="jewelery">
                 <img src="./src/images/joyería.webp" alt="" class="img-categories">
                 <h3>Joyería</h3>
             </div>
-            <div class="category">
+
+            <div class="category" data-category="electronics">
                 <img src="./src/images/tecnologia.webp" alt="" class="img-categories">
                 <h3>Tecnología</h3>
             </div>
         </div>
     </section>
-
-    <div id="product-container" class="product-grid">
-
+    <div id="cart-container">
+        <!-- Aquí se renderizarán los productos del carrito -->
     </div>
+    <div id="product-container" class="product-grid"></div>
 
     <div class="navbar-footer">
         <div class="btn-container">
-            <button class="btn-navbar">
+            <a href="/index.html" class="btn-navbar" id="btnHome">
                 <img src="./src/images/img-barra/Home-barra.svg" alt="" class="icon-navbar">
                 Home
-            </button>
-            <button class="btn-navbar">
+            </a>
+            <button class="btn-navbar" id="btnSearch">
                 <img src="./src/images/img-barra/Search.svg" alt="" class="icon-navbar">
                 Search
             </button>
-            <button class="btn-navbar">
+            <button class="btn-navbar" id="btnSaved">
                 <img src="./src/images/img-barra/Heart.svg" alt="" class="icon-navbar">
                 Saved
             </button>
-            <button class="btn-navbar">
+
+            <button class="btn-navbar" id="btnCart">
                 <img src="./src/images/img-barra/Cart.svg" alt="" class="icon-navbar">
                 Cart
+                <span id="cart-count" class="cart-count"></span>
             </button>
+
         </div>
         <hr class="separador">
     </div>
 
+
     <footer class="footer">
         <a>
-            <h4>Síguenos</h4>
+            <h4>Conoce más</h4>
         </a>
         <hr class="separador">
         <div class="logos-footer">
